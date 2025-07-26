@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Assignment Generator</title>
+  <style>
+        /* পুরো বডির স্টাইল */
+        body {
+            font-family: 'Times New Roman', serif; /* ফন্ট ফ্যামিলি সেট */
+            text-align: center; /* টেক্সট সেন্টার অ্যালাইন */
+            padding: 40px; /* চারপাশে ৪০px প্যাডিং */
+            font-size: 16px; /* ফন্ট সাইজ ১৬px */
+            background-color: #f5f7fa; /* ব্যাকগ্রাউন্ড কালার */
+        }
+
+        /* মূল কন্টেইনার স্টাইল */
+        .container {
+            width: 790px; /* প্রস্থ ৭৯০px */
+            margin: auto; /* মাঝখানে সেন্টার */
+            background: white; /* সাদা ব্যাকগ্রাউন্ড */
+            padding: 20px; /* ভিতরে ২০px প্যাডিং */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* হালকা শ্যাডো ইফেক্ট */
+            border-radius: 10px; /* ১০px কোণা বাঁকানো */
+        }
+
+        /* হেডিং ১ স্টাইল */
+        h1 {
+            color: #2c3e50; /* টেক্সট কালার */
+            margin-bottom: 30px; /* নিচে ৩০px মার্জিন */
+            border-bottom: 2px solid #3498db; /* নিচে নীল বর্ডার */
+            padding-bottom: 10px; /* বর্ডারের জন্য নিচে প্যাডিং */
+        }
+
+        /* ফর্ম সেকশন স্টাইল */
+        .form-section {
+            text-align: left; /* টেক্সট বামে অ্যালাইন */
+            margin-bottom: 20px; /* নিচে ২০px মার্জিন */
+            padding: 20px; /* ভিতরে ২০px প্যাডিং */
+            border-radius: 8px; /* ৮px কোণা বাঁকানো */
+            background: #f8f9fa; /* হালকা গ্রে ব্যাকগ্রাউন্ড */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* সাবটাইল শ্যাডো */
+        }
+
+        /* ফর্ম গ্রুপ স্টাইল */
+        .form-group {
+            margin-bottom: 10px; /* নিচে ১০px মার্জিন */
+            display: flex; /* ফ্লেক্স বক্স লেআউট */
+            align-items: center; /* আইটেমস ভার্টিক্যাল সেন্টার */
+        }
+
+        /* লেবেল স্টাইল */
+        label {
+            display: inline-block; /* ইনলাইন-ব্লক ডিসপ্লে */
+            width: 200px; /* প্রস্থ ২০০px */
+            font-weight: bold; /* বোল্ড ফন্ট */
+            color: #2c3e50; /* টেক্সট কালার */
+        }
+
+        /* ইনপুট ও সিলেক্ট ফিল্ড স্টাইল */
+        input, select {
+            width: 300px; /* প্রস্থ ৩০০px */
+            padding: 8px; /* ভিতরে ৮px প্যাডিং */
+            font-size: 16px; /* ফন্ট সাইজ */
+            border: 1px solid #ddd; /* হালকা গ্রে বর্ডার */
+            border-radius: 4px; /* ৪px কোণা বাঁকানো */
+            transition: border-color 0.3s; /* স্মুথ ট্রানজিশন */
+        }
+
+        /* ফোকাস স্টাইল */
+        input:focus, select:focus {
+            outline: none; /* ডিফল্ট আউটলাইন রিমুভ */
+            border-color: #3498db; /* নীল বর্ডার কালার */
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* নীল শ্যাডো */
+        }
+
+        /* কভার বক্স স্টাইল */
+        .cover-box {
+            padding: 20px; /* ভিতরে ২০px প্যাডিং */
+            margin-top: 30px; /* উপরে ৩০px মার্জিন */
+            font-size: 20px; /* ফন্ট সাইজ ২০px */
+            background: white; /* সাদা ব্যাকগ্রাউন্ড */
+            position: relative; /* রিলেটিভ পজিশন */
+        }
+
+        /* ডিপার্টমেন্ট বক্স স্টাইল */
+        .dept-box {
+            border: 2px solid black; /* কালো বর্ডার */
+            padding: 5px; /* ভিতরে ৫px প্যাডিং */
+            margin: 10px auto; /* উপরে-নিচে ১০px, মাঝখানে */
+            width: 500px; /* প্রস্থ ৫০০px */
+            font-size: 20px; /* ফন্ট সাইজ */
+            font-weight: bold; /* বোল্ড ফন্ট */
+            background: #f8f9fa; /* হালকা গ্রে ব্যাকগ্রাউন্ড */
+        }
+
+        /* লোগো স্টাইল */
+        .logo {
+            width: 150px; /* প্রস্থ ১৫০px */
+            height: 150px; /* উচ্চতা ১৫০px */
+            display: block; /* ব্লক ডিসপ্লে */
+            margin: 10px auto; /* মাঝখানে সেন্টার */
+            object-fit: contain; /* ইমেজ ফিট করার স্টাইল */
+        }
+
+        /* অ্যাসাইনমেন্ট টাইটেল স্টাইল */
+        .assignment-title {
+            display: inline-block; /* ইনলাইন-ব্লক ডিসপ্লে */
+            border: 2px solid black; /* কালো বর্ডার */
+            padding: 5px 20px; /* ভিতরে প্যাডিং */
+            font-weight: bold; /* বোল্ড ফন্ট */
+            margin: 10px auto; /* মাঝখানে সেন্টার */
+            font-size: 25px; /* ফন্ট সাইজ ২৫px */
+            background: #e8f4fc; /* হালকা নীল ব্যাকগ্রাউন্ড */
+        }
+
+        /* টেবিল স্টাইল */
+        table {
+            margin: -10px auto; /* নেগেটিভ মার্জিন */
+            text-align: start; /* টেক্সট বামে অ্যালাইন */
+            width: 100%; /* ফুল প্রস্থ */
+            border-collapse: collapse; /* বর্ডার কলাপ্স */
+        }
+
+        /* টেবিল সেল স্টাইল */
+        td {
+            padding: 8px; /* ভিতরে ৮px প্যাডিং */
+            vertical-align: top; /* টপ অ্যালাইনমেন্ট */
+        }
+
+        /* লেবেল সেল স্টাইল */
+        td.label {
+            width: 200px; /* প্রস্থ ২০০px */
+            font-weight: bold; /* বোল্ড ফন্ট */
+        }
+
+        /* কোলন সেল স্টাইল */
+        td.colon {
+            width: 10px; /* প্রস্থ ১০px */
+        }
+
+        /* ভ্যালু সেল স্টাইল */
+        td.value {
+            width: auto; /* অটো প্রস্থ */
+            border-bottom: 1px dashed #ddd; /* ড্যাশড বর্ডার */
+        }
+
+        /* বিভাজক লাইন স্টাইল */
+        .line {
+            border-top: 2px solid black; /* উপরে কালো বর্ডার */
+            width: 70%; /* ৭০% প্রস্থ */
+            margin: 20px auto; /* মাঝখানে সেন্টার */
+        }
+
+        /* রিমার্ক বক্স স্টাইল */
+        .remark-box {
+            border: 2px solid black; /* কালো বর্ডার */
+            width: 150px; /* প্রস্থ ১৫০px */
+            height: 100px; /* উচ্চতা ১০০px */
+            text-align: center; /* টেক্সট সেন্টার */
+            line-height: 30px; /* লাইন হাইট */
+            margin-top: -150px; /* উপরে নেগেটিভ মার্জিন */
+            margin-left: 500px; /* বামে ৫০০px মার্জিন */
+            background: #f8f9fa; /* হালকা গ্রে ব্যাকগ্রাউন্ড */
+            font-weight: bold; /* বোল্ড ফন্ট */
+        }
+
+        /* সাবমিট টু র‍্যাপার স্টাইল */
+        .submitted-to-wrapper {
+            display: flex; /* ফ্লেক্স বক্স লেআউট */
+            align-items: flex-start; /* আইটেমস টপ অ্যালাইন */
+            justify-content: space-between; /* স্পেস বিটুইন */
+            margin-top: 10px; /* উপরে ১০px মার্জিন */
+            flex-wrap: wrap; /* র‍্যাপ করার সুবিধা */
+            gap: 10px; /* গ্যাপ ১০px */
+        }
+
+        /* সাবমিট লেবেল স্টাইল */
+        .submitted-label {
+            margin: 0; /* মার্জিন রিমুভ */
+            text-align: left; /* টেক্সট বামে অ্যালাইন */
+            white-space: nowrap; /* নো র‍্যাপ */
+            flex: 0 0 auto; /* ফ্লেক্স নন-গ্রোয়েবল */
+            margin-right: 10px; /* ডানে ১০px মার্জিন */
+            margin-left: 8px; /* বামে ৮px মার্জিন */
+            font-weight: bold; /* বোল্ড ফন্ট */
+        }
+
+        /* সাবমিট সেন্টার স্টাইল */
+        .submitted-center {
+            flex: 1 1 auto; /* ফ্লেক্স গ্রোয়েবল */
+            text-align: center; /* টেক্সট সেন্টার */
+            line-height: 1.5; /* লাইন হাইট */
+            min-width: 200px; /* মিনিমাম প্রস্থ */
+            margin-left: -130px; /* বামে নেগেটিভ মার্জিন */
+        }
+
+        /* বাটন বেসিক স্টাইল */
+        .btn {
+            background: #3498db; /* নীল ব্যাকগ্রাউন্ড */
+            color: white; /* সাদা টেক্সট */
+            border: none; /* বর্ডার রিমুভ */
+            padding: 12px 24px; /* ভিতরে প্যাডিং */
+            font-size: 16px; /* ফন্ট সাইজ */
+            border-radius: 5px; /* ৫px বর্ডার রেডিয়াস */
+            cursor: pointer; /* পয়েন্টার কার্সর */
+            transition: background 0.3s; /* ব্যাকগ্রাউন্ড ট্রানজিশন */
+            font-weight: bold; /* বোল্ড ফন্ট */
+            margin: 10px 5px; /* চারপাশে মার্জিন */
+        }
+
+        /* বাটন হোভার স্টাইল */
+        .btn:hover {
+            background: #2980b9; /* গাঢ় নীল কালার */
+        }
+
+        /* প্রিন্ট বাটন স্টাইল */
+        .btn-print {
+            background: #27ae60; /* সবুজ কালার */
+        }
+
+        /* প্রিন্ট বাটন হোভার স্টাইল */
+        .btn-print:hover {
+            background: #219653; /* গাঢ় সবুজ কালার */
+        }
+
+      
+
+        /* প্রিন্ট মিডিয়া কুয়েরি */
+        @media print {
+            body * {
+                visibility: hidden; /* সব এলিমেন্ট হাইড */
+            }
+            #output, #output * {
+                visibility: visible; /* শুধু আউটপুট দেখাও */
+            }
+            #output {
+                position: absolute; /* এবসলিউট পজিশন */
+                left: 0; /* বামে ০ */
+                top: 0; /* উপরে ০ */
+                width: 100%; /* ফুল প্রস্থ */
+                padding: 0; /* প্যাডিং রিমুভ */
+                margin: 0; /* মার্জিন রিমুভ */
+            }
+            @page {
+                size: A4; /* A4 সাইজ */
+                margin: 15mm 20mm; /* মার্জিন সেট */
+            }
+        }
+
+        /* পরিবর্তন তথ্য সেকশন স্টাইল */
+        .changes-info {
+            background: #e8f4fc; /* হালকা নীল ব্যাকগ্রাউন্ড */
+            padding: 15px; /* ভিতরে ১৫px প্যাডিং */
+            border-left: 4px solid #3498db; /* বামে নীল বর্ডার */
+            margin: 20px 0; /* উপরে-নিচে ২০px মার্জিন */
+            text-align: left; /* টেক্সট বামে অ্যালাইন */
+        }
+
+        /* পরিবর্তন তথ্য হেডিং স্টাইল */
+        .changes-info h3 {
+            margin-top: 0; /* উপরের মার্জিন রিমুভ */
+            color: #2c3e50; /* টেক্সট কালার */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Assignment Cover Page Generator</h1>
+    
+ 
+   
+    <form onsubmit="generate(event)">
+        <div class="form-section">
+            <div class="form-group">
+                <label for="reportType">Report Type:</label>
+                <select id="reportType">
+                    <option value="Assignment">Assignment</option>
+                    <option value="Lab Report">Lab Report</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Course Name:</label><input id="courseName" placeholder="e.g. Data Structures" /></div>
+            <div class="form-group"><label>Course Code:</label><input id="courseCode" placeholder="e.g. CSE 205" /></div>
+            <div class="form-group">
+                <label id="assignmentNameLabel">Name of Assignment:</label>
+                <input id="assignmentName" placeholder="e.g. Sorting Algorithms" />
+            </div>
+            <div class="form-group">
+                <label id="assignmentNumberLabel">Number of Assignment:</label>
+                <input id="assignmentNumber" placeholder="e.g. 01" />
+            </div>
+            <div class="form-group"><label>Date of Submission:</label><input type="date" id="submissionDate" /></div>
+            <div class="form-group"><label>Date of Performance:</label><input type="date" id="performanceDate" /></div>
+
+            <div class="form-group">
+                <label>Submitted To (Name):</label>
+                <input id="submittedName" placeholder="e.g. Muhammad Imam" />
+            </div>
+
+            <div class="form-group">
+                <label>Designation:</label>
+                <select id="submittedDesignation">
+                    <option value="Associate Professor">Associate Professor</option>
+                    <option value="Assistant Professor">Assistant Professor</option>
+                    <option value="Lecturer" selected>Lecturer</option>
+                </select>
+            </div>
+
+            <div class="form-group"><label>Your Name:</label><input id="name" placeholder="e.g. John Doe" /></div>
+            <div class="form-group"><label>ID:</label><input id="id" placeholder="e.g. CSE123456" /></div>
+            <div class="form-group"><label>Semester:</label><input id="semester" placeholder="e.g. 5th" /></div>
+            <div class="form-group"><label>Batch:</label><input id="batch" placeholder="e.g. 45" /></div>
+            <div class="form-group"><label>Session:</label><input id="session" placeholder="e.g. 2021-22" /></div>
+            <div class="form-group"><label>Section:</label><input id="section" placeholder="e.g. A" /></div>
+        </div>
+        <button type="submit" class="btn">Generate Assignment Cover</button>
+    </form>
+
+    <div class="cover-box" id="output" style="display:none;">
+        <h2><b>Premier University, Chattogram</b></h2>
+        <div class="dept-box">Department of Computer Science and Engineering</div>
+        <img class="logo" src="image.png" alt="University Logo" />
+        <div class="assignment-title" id="outReportType"></div><br><br><br>
+
+        <table>
+            <tr><td class="label">Course Name</td><td class="colon">:</td><td class="value"><span id="outCourseName"></span></td></tr>
+            <tr><td class="label">Course Code</td><td class="colon">:</td><td class="value"><span id="outCourseCode"></span></td></tr>
+            <tr>
+                <td class="label"><span id="assignmentNameStaticLabel">Name of Assignment</span></td>
+                <td class="colon">:</td>
+                <td class="value"><span id="outAssignmentName"></span></td>
+            </tr>
+            <tr>
+                <td class="label"><span id="assignmentNumberStaticLabel">Number of Assignment</span></td>
+                <td class="colon">:</td>
+                <td class="value"><span id="outAssignmentNumber"></span></td>
+            </tr>
+            <tr><td class="label">Date of Submission</td><td class="colon">:</td><td class="value"><span id="outSubmissionDate"></span></td></tr>
+            <tr><td class="label">Date of Performance</td><td class="colon">:</td><td class="value"><span id="outPerformanceDate"></span></td></tr>
+        </table><br><br>
+
+        <div class="line"></div><br><br>
+
+        <div class="submitted-to-wrapper">
+            <p class="submitted-label">Submitted to :</p>
+            <div class="submitted-center">
+                <span id="outSubmittedName"></span><br>
+                <span id="outSubmittedDesignation"></span><br>
+                Department of Computer Science and Engineering
+            </div>
+        </div><br><br>
+
+        <p class="submitted-label">Submitted By,</p><br><br>
+        <table>
+            <tr><td class="label">Name</td><td class="colon">:</td><td class="value"><span id="outName"></span></td></tr>
+            <tr><td class="label">ID</td><td class="colon">:</td><td class="value"><span id="outId"></span></td></tr>
+            <tr><td class="label">Semester</td><td class="colon">:</td><td class="value"><span id="outSemester"></span></td></tr>
+            <tr><td class="label">Batch</td><td class="colon">:</td><td class="value"><span id="outBatch"></span></td></tr>
+            <tr><td class="label">Session</td><td class="colon">:</td><td class="value"><span id="outSession"></span></td></tr>
+            <tr><td class="label">Section</td><td class="colon">:</td><td class="value"><span id="outSection"></span></td></tr>
+        </table>
+        <div class="remark-box">Remark</div>
+    </div>
+    
+    <div class="no-print" style="margin-top: 30px;">
+        <button onclick="window.print()" class="btn btn-print">🖨️ Print Assignment Cover</button>
+        <button onclick="location.reload()" class="btn">🔄 Create New Cover</button>
+    </div>
+</div>
+
+<script>
+    function generate(e) {
+        e.preventDefault();
+        const get = id => document.getElementById(id).value;
+        const set = (id, val) => document.getElementById(id).textContent = val;
+
+        set('outReportType', get('reportType'));
+        set('outCourseName', get('courseName'));
+        set('outCourseCode', get('courseCode'));
+        set('outAssignmentName', get('assignmentName'));
+        set('outAssignmentNumber', get('assignmentNumber'));
+        
+        // Format dates for display
+        const submissionDate = new Date(get('submissionDate'));
+        const performanceDate = new Date(get('performanceDate'));
+        set('outSubmissionDate', submissionDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
+        set('outPerformanceDate', performanceDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
+        
+        set('outSubmittedName', get('submittedName'));
+        set('outSubmittedDesignation', get('submittedDesignation'));
+        set('outName', get('name'));
+        set('outId', get('id'));
+        set('outSemester', get('semester'));
+        set('outBatch', get('batch'));
+        set('outSession', get('session'));
+        set('outSection', get('section'));
+
+        document.getElementById('output').style.display = 'block';
+        document.getElementById('output').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Update labels based on Report Type selection
+    document.getElementById('reportType').addEventListener('change', function () {
+        const type = this.value;
+        document.getElementById('assignmentNameLabel').textContent = `Name of ${type}:`;
+        document.getElementById('assignmentNumberLabel').textContent = `Number of ${type}:`;
+        document.getElementById('assignmentNameStaticLabel').textContent = `Name of ${type}`;
+        document.getElementById('assignmentNumberStaticLabel').textContent = `Number of ${type}`;
+    });
+
+    // Set today's date as default for submission and performance
+    window.addEventListener('DOMContentLoaded', () => {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('submissionDate').value = today;
+        document.getElementById('performanceDate').value = today;
+        
+        const type = document.getElementById('reportType').value;
+        document.getElementById('assignmentNameLabel').textContent = `Name of ${type}:`;
+        document.getElementById('assignmentNumberLabel').textContent = `Number of ${type}:`;
+        document.getElementById('assignmentNameStaticLabel').textContent = `Name of ${type}`;
+        document.getElementById('assignmentNumberStaticLabel').textContent = `Number of ${type}`;
+        
+        // Auto-fill sample data for demonstration
+        document.getElementById('courseName').value = "Data Structures and Algorithms";
+        document.getElementById('courseCode').value = "CSE 205";
+        document.getElementById('assignmentName').value = "Sorting Algorithms Analysis";
+        document.getElementById('assignmentNumber').value = "01";
+        document.getElementById('submittedName').value = "Dr. Muhammad Imam";
+        document.getElementById('name').value = "John Doe";
+        document.getElementById('id').value = "CSE2021001";
+        document.getElementById('semester').value = "5th";
+        document.getElementById('batch').value = "45";
+        document.getElementById('session').value = "2021-22";
+        document.getElementById('section').value = "A";
+    });
+</script>
+</body>
+</html>
